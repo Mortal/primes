@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
 add_definitions("-Wall -Wextra")
-add_executable(primes primes.cpp)
+add_executable(primes primes.cpp primes.h)
+add_executable(moreprimes moreprimes.cpp primes.h)
 add_executable(primereader primereader.cpp)

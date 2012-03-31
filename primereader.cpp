@@ -1,9 +1,13 @@
 #include <cstdio>
 #include <iostream>
+#include <sstream>
 
-int main() {
-  FILE * primes = fopen("primes.bin", "r");
+int main(int argc, char ** argv) {
   size_t offset = 0;
+  std::string filename = "primes.bin";
+  if (argc > 1) filename = argv[1];
+  if (argc > 2) std::stringstream(argv[2]) >> offset;
+  FILE * primes = fopen(filename.c_str(), "r");
   while (primes && !feof(primes)) {
     unsigned char count = static_cast<unsigned char>(fgetc(primes));
     if (feof(primes)) break;
