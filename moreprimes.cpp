@@ -30,6 +30,7 @@ void find_more_primes(logger & l, const N n, N iteration) {
     offset += 256;
   }
 past_limit:
+  l() << "Writing primes to primes2.bin" << std::endl;
   fclose(primes);
   write_primes(l, "primes2.bin", notprime);
 }
