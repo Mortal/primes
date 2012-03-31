@@ -15,19 +15,22 @@ void write_primes(const char * filename, std::vector<bool> & notprime) {
   logger l;
   l() << "Writing to " << filename << std::endl;
   FILE * primes = fopen(filename, "w+");
-  size_t n = notprime.size();
-  for (size_t offset = 0; offset < n;) {
-    size_t limit = offset+256;
+  size_t n = 2*notprime.size();
+  size_t idx = 0;
+  for (size_t offset = 1; offset < n;) {
+    size_t limit = offset+255;
     int pos = ftell(primes);
     unsigned char count = 0;
     fwrite(&count, 1, 1, primes);
-    unsigned char i = 0;
+    unsigned char i = 1;
     while (offset < limit) {
-      if (!notprime[offset]) {
+      if (!notprime[idx]) {
 	fwrite(&i, 1, 1, primes);
 	++count;
       }
-      ++offset, ++i;
+      offset += 2;
+      i += 2;
+      ++idx;
     }
     if (count == 0) {
       l() << "There are no primes in the range " << limit-256 << " to " << limit-1 << std::endl;

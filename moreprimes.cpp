@@ -5,7 +5,8 @@
 #include "primes.h"
 
 template <typename N>
-void find_more_primes(logger & l, const N n, N iteration) {
+void find_more_primes(logger & l, const N n_, N iteration) {
+  const N n = n_/2;
   std::vector<bool> notprime(n);
   FILE * primes = fopen("primes.bin", "r");
   N offset = 0;
@@ -18,13 +19,16 @@ void find_more_primes(logger & l, const N n, N iteration) {
       N prime = offset + i;
       if (prime > limit)
 	goto past_limit;
-      N j = ((prime-1+iteration*n)/prime)*prime;
-      assert(j >= iteration*n);
-      assert(j < n+iteration*n);
-      N k = j - iteration*n;
-      while (k < n) {
+      // first non-prime corresponding to this prime
+      N j = ((prime-1+iteration*n_)/prime)*prime;
+      assert(j >= iteration*n_);
+      assert(j < n_+iteration*n_);
+      // first index to write to
+      N k = (j - iteration*n)/2;
+      N increment = j - iteration*n;
+      while (k < n_) {
 	notprime[k] = true;
-	k += prime;
+	k += increment;
       }
     }
     offset += 256;

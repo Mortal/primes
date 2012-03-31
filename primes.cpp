@@ -4,23 +4,26 @@
 #include "primes.h"
 
 template <typename N>
-void find_all_the_primes(logger & l, const N n) {
-  std::vector<bool> notprime(n);
-  notprime[0] = notprime[1] = true;
-  unsigned int threshold = 4;
-  l() << "Finding all primes less than " << n << std::endl;
-  for (unsigned int i = 2; i < (n); ++i) {
+void find_all_the_primes(logger & l, const N n_) {
+  const N n = n_/2;
+  std::vector<bool> notprime(n); // if notprime[i], then 2i+1 is not a prime.
+  notprime[0] = true;
+  N threshold = 2;
+  l() << "Finding all primes less than " << 2*n << std::endl;
+  for (N i = 1; i < (n); ++i) {
     if (i == threshold) {
-      l() << "Found all primes less than " << threshold << std::endl;
+      l() << "Found all primes less than " << 2*threshold << std::endl;
       threshold = threshold << 1;
     }
     if (!notprime[i]) {
-      for (unsigned int j = i+i; j < (n); j += i) {
+      N increment = 2*i+1;
+      // index i+2*i+1 is the number 2*(i+2i+1)+1 = 2i+4i+3 = 6i+3 = 3*(2i+1)
+      for (unsigned int j = i+increment; j < (n); j += increment) {
 	notprime[j] = true;
       }
     }
   }
-  l() << "Found all primes less than " << n << ", printing to primes.bin" << std::endl;
+  l() << "Found all primes less than " << 2*n << ", printing to primes.bin" << std::endl;
   write_primes("primes.bin", notprime);
 }
 

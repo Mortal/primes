@@ -8,6 +8,7 @@ int main(int argc, char ** argv) {
   if (argc > 1) filename = argv[1];
   if (argc > 2) std::stringstream(argv[2]) >> offset;
   FILE * primes = fopen(filename.c_str(), "r");
+  std::cout << "2\n";
   while (primes && !feof(primes)) {
     unsigned char count = static_cast<unsigned char>(fgetc(primes));
     if (feof(primes)) break;
