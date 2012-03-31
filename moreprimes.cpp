@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cassert>
 #include <cmath>
+#include <sstream>
 #include "primes.h"
 
 template <typename N>
@@ -33,9 +34,14 @@ past_limit:
   write_primes(l, "primes2.bin", notprime);
 }
 
-int main() {
+int main(int argc, char ** argv) {
   logger l;
-  const unsigned int n = 1 << 14;
-  find_more_primes<unsigned int>(l, n, 1);
+  unsigned long long n = 1 << 30;
+  if (argc > 1) std::stringstream(argv[1]) >> n;
+  if (n < (1ull << 32)) {
+    find_more_primes<unsigned int>(l, static_cast<unsigned int>(n), 1);
+  } else {
+    find_more_primes<unsigned long long>(l, n, 1);
+  }
   return 0;
 }

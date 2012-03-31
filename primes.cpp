@@ -1,5 +1,6 @@
 #include <vector>
 #include <cstdio>
+#include <sstream>
 #include "primes.h"
 
 template <typename N>
@@ -23,9 +24,14 @@ void find_all_the_primes(logger & l, const N n) {
   write_primes(l, "primes.bin", notprime);
 }
 
-int main() {
+int main(int argc, char ** argv) {
   logger l;
-  const unsigned int n = 1 << 14;
-  find_all_the_primes<unsigned int>(l, n);
+  unsigned long long n = 1 << 30;
+  if (argc > 1) std::stringstream(argv[1]) >> n;
+  if (n < (1ull << 32)) {
+    find_all_the_primes<unsigned int>(l, static_cast<unsigned int>(n));
+  } else {
+    find_all_the_primes<unsigned long long>(l, n);
+  }
   return 0;
 }
