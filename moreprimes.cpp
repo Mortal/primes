@@ -37,11 +37,13 @@ past_limit:
 int main(int argc, char ** argv) {
   logger l;
   unsigned long long n = 1 << 30;
+  int run = 1;
   if (argc > 1) std::stringstream(argv[1]) >> n;
+  if (argc > 2) std::stringstream(argv[2]) >> run;
   if (n < (1ull << 32)) {
-    find_more_primes<unsigned int>(l, static_cast<unsigned int>(n), 1);
+    find_more_primes<unsigned int>(l, static_cast<unsigned int>(n), run);
   } else {
-    find_more_primes<unsigned long long>(l, n, 1);
+    find_more_primes<unsigned long long>(l, n, run);
   }
   return 0;
 }
