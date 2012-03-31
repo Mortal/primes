@@ -41,7 +41,7 @@ int main(int argc, char ** argv) {
   int run = 1;
   if (argc > 1) std::stringstream(argv[1]) >> n;
   if (argc > 2) std::stringstream(argv[2]) >> run;
-  if (n < (1ull << 32)) {
+  if ((n+run*n) < (1ull << 32)) {
     find_more_primes<unsigned int>(l, static_cast<unsigned int>(n), run);
   } else {
     find_more_primes<unsigned long long>(l, n, run);
