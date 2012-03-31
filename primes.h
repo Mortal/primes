@@ -11,7 +11,9 @@ struct logger {
   }
 };
 
-void write_primes(logger & l, const char * filename, std::vector<bool> & notprime) {
+void write_primes(const char * filename, std::vector<bool> & notprime) {
+  logger l;
+  l() << "Writing to " << filename << std::endl;
   FILE * primes = fopen(filename, "w+");
   size_t n = notprime.size();
   for (size_t offset = 0; offset < n;) {

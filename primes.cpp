@@ -21,7 +21,7 @@ void find_all_the_primes(logger & l, const N n) {
     }
   }
   l() << "Found all primes less than " << n << ", printing to primes.bin" << std::endl;
-  write_primes(l, "primes.bin", notprime);
+  write_primes("primes.bin", notprime);
 }
 
 int main(int argc, char ** argv) {
